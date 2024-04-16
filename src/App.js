@@ -1,4 +1,6 @@
 import React from "react";
+import People from "./assets/people.svg"
+import Arrow from "./assets/arrow.svg"
 import {
   Container,
   H1,
@@ -11,7 +13,7 @@ import {
 function App() {
   return (
     <Container>
-        <Image/>
+        <Image alt="logo-people" src={People}/>
         <ContainerItems>
         <H1>Hello!</H1>
 
@@ -21,7 +23,7 @@ function App() {
         <InputLabel>Age</InputLabel>
         <Input placeholder="Age"/>
 
-        <Button>register</Button>
+        <Button>Submit<img alt="logo-arrow" src={Arrow}/> </Button>
 
 
         </ContainerItems>
