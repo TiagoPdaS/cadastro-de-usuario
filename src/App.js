@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import People from "./assets/people.svg";
 import Arrow from "./assets/arrow.svg";
 import Trash from "./assets/trash.svg";
@@ -10,14 +10,28 @@ import {
   InputLabel,
   Input,
   Button,
-  User
+  User,
 } from "./styles";
 
 function App() {
-  const users = [
-    { id: Math.random(), name: "Iago", age: 33 },
-    { id: Math.random(), name: "Samuel", age: 11 },
-  ];
+  //const users = [];
+  const [users, setUsers] = useState([]);
+  const inputName = useRef();
+  const inputAge = useRef();
+
+  function addNewUser() {
+    console.log(inputName.current.value);
+    console.log(inputAge.current.value);
+    setUsers([
+      ...users,
+      {
+        id: Math.random(),
+        name: inputName.current.value,
+        age: inputAge.current.value,
+      },
+    ]);
+  }
+
   return (
     <Container>
       <Image alt="logo-people" src={People} />
@@ -25,12 +39,12 @@ function App() {
         <H1>Hello!</H1>
 
         <InputLabel>Name</InputLabel>
-        <Input placeholder="Name" />
+        <Input ref={inputName} placeholder="Name" />
 
         <InputLabel>Age</InputLabel>
-        <Input placeholder="Age" />
+        <Input ref={inputAge} placeholder="Age" />
 
-        <Button>
+        <Button onClick={addNewUser}>
           Submit
           <img alt="logo-arrow" src={Arrow} />{" "}
         </Button>
@@ -38,12 +52,13 @@ function App() {
         <ul>
           {users.map((user) => (
             <User key={user.id}>
-             <p>{user.name}</p> <p>{user.age}</p>
-             <button><img src={Trash} alt="trash"/></button>
+              <p>{user.name}</p> <p>{user.age}</p>
+              <button>
+                <img src={Trash} alt="trash" />
+              </button>
             </User>
           ))}
         </ul>
-
       </ContainerItems>
     </Container>
   );
