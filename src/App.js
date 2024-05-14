@@ -22,14 +22,19 @@ function App() {
   const inputAge = useRef();
 
   async function addNewUser() {
-    const { data: newUser } = await axios.post("http://localhost:3001/users", {
-      name: inputName.current.value,
-      age: inputAge.current.value,
-    });
+    //     const { data: newUser } = await axios.post("http://localhost:3001/users", {
+    //       name: inputName.current.value,
+    //       age: inputAge.current.value,
 
-console.log(newUser)
+    //   });
 
-    setUsers([...users, newUser]);
+    // console.log(newUser)
+
+    //     setUsers([...users, newUser]);
+
+    const { data: newUser } = await axios.get("http://localhost:3001/users");
+
+    setUsers(newUser);
   }
 
   function deleteUser(userId) {
