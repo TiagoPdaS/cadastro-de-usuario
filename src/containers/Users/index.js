@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import Avatar from "../../assets/avatar.svg";
@@ -15,7 +16,7 @@ import {
 
 function Users() {
   const [users, setUsers] = useState([]);
-
+  const navigate = useNavigate();
 
  useEffect(() => {
     async function fetchUsers() {
@@ -32,6 +33,10 @@ function Users() {
 
     const newUsers = users.filter((user) => user.id === userId);
     setUsers(newUsers);
+  }
+
+  function goBackPage(){
+    navigate("/")
   }
 
   return (
@@ -51,7 +56,7 @@ function Users() {
           ))}
         </ul>
 
-        <Button>
+        <Button onClick={goBackPage}>
         <img alt="logo-arrow" src={Arrow} />
           Previous
           
