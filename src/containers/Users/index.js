@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from "axios";
-import People from "../../assets/people.svg";
+import Avatar from "../../assets/avatar.svg";
 import Arrow from "../../assets/arrow.svg";
 import Trash from "../../assets/trash.svg";
 import {
@@ -9,34 +9,22 @@ import {
   H1,
   Image,
   ContainerItems,
-  InputLabel,
-  Input,
   Button,
   User,
 } from "./styles";
 
-function App() {
+function Users() {
   const [users, setUsers] = useState([]);
-  const inputName = useRef();
-  const inputAge = useRef();
 
-  async function addNewUser() {
-    const { data: newUser } = await axios.post("http://localhost:3001/users", {
-      name: inputName.current.value,
-      age: inputAge.current.value,
-    });
-    
-    setUsers([...users, newUser]);
-  }
 
-  useEffect(() => {
+ useEffect(() => {
     async function fetchUsers() {
       const { data: newUser } = await axios.get("http://localhost:3001/users");
 
       setUsers(newUser);
     }
 
-    fetchUsers()
+    fetchUsers();
   }, []);
 
   async function deleteUser(userId) {
@@ -48,20 +36,9 @@ function App() {
 
   return (
     <Container>
-      <Image alt="logo-people" src={People} />
+      <Image alt="logo-people" src={Avatar} />
       <ContainerItems>
-        <H1>Hello!</H1>
-
-        <InputLabel>Name</InputLabel>
-        <Input ref={inputName} placeholder="Name" />
-
-        <InputLabel>Age</InputLabel>
-        <Input ref={inputAge} placeholder="Age" />
-
-        <Button onClick={addNewUser}>
-          Submit
-          <img alt="logo-arrow" src={Arrow} />{" "}
-        </Button>
+        <H1>Users!</H1>
 
         <ul>
           {users.map((user) => (
@@ -73,9 +50,15 @@ function App() {
             </User>
           ))}
         </ul>
+
+        <Button>
+        <img alt="logo-arrow" src={Arrow} />
+          Previous
+          
+        </Button>
       </ContainerItems>
     </Container>
   );
 }
 
-export default App;
+export default Users;
